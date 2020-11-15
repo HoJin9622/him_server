@@ -1,25 +1,24 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 
-// @desc    Auth user & get token
+// @desc    유저 로그인
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body
+  const { id, password } = req.body
 
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ id })
 
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      isProvider: user.isProvider,
     })
   } else {
     res.status(401)
-    throw new Error('Invalid email or password')
+    throw new Error('올바르지 않은 아이디 혹은 패스워드 입니다.')
   }
 })
 
@@ -102,4 +101,4 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-export { registerUser }
+export { registerUser, authUser }
