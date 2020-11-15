@@ -13,7 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       name: user.name,
-      email: user.email,
+      id: user.id,
       isProvider: user.isProvider,
     })
   } else {
@@ -22,11 +22,11 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    유저 등록
+// @desc    유저 회원가입
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, id, password } = req.body
+  const { name, id, password, isProvider } = req.body
 
   const userExists = await User.findOne({ id })
 
@@ -39,13 +39,14 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     id,
     password,
+    isProvider,
   })
 
   if (user) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
-      email: user.email,
+      id: user.id,
       isProvider: user.isProvider,
     })
   } else {
