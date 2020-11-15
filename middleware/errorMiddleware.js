@@ -1,5 +1,5 @@
 const notFound = (req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`)
+  const error = new Error(`페이지를 찾을 수 없습니다. - ${req.originalUrl}`)
   res.status(404)
   next(error)
 }
