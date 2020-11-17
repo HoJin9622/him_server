@@ -12,6 +12,30 @@ const getIngredients = asyncHandler(async (req, res) => {
 // @desc    유저 식재료
 // @route   POST /api/ingredients
 // @access  Public
-const addIngredient = asyncHandler(async (req, res) => {})
+const addIngredient = asyncHandler(async (req, res) => {
+  const {
+    user,
+    name,
+    image,
+    category,
+    memo,
+    barcode,
+    expirationDate,
+  } = req.body
 
-export { getIngredients }
+  const ingredient = new Ingredient({
+    user,
+    name,
+    image,
+    category,
+    memo,
+    barcode,
+    expirationDate,
+  })
+
+  const createIngredient = await ingredient.save()
+
+  res.status(201).json(createIngredient)
+})
+
+export { getIngredients, addIngredient }
