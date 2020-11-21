@@ -74,15 +74,15 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Update user profile
+// @desc    유저 패스워드 변경
 // @route   PUT /api/users/profile
-// @access  Private
+// @access  Public
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id)
+  const user = await User.findById(req.body._id)
 
   if (user) {
     user.name = req.body.name || user.name
-    user.email = req.body.email || user.email
+    user.id = req.body.id || user.id
     if (req.body.password) {
       user.password = req.body.password
     }
@@ -91,10 +91,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedUser._id,
+      id: updatedUser.id,
       name: updatedUser.name,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
-      token: generateToken(updatedUser._id),
+      isProvider: updatedUser.isProvider,
     })
   } else {
     res.status(404)
@@ -102,4 +101,4 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-export { registerUser, authUser }
+export { registerUser, authUser, updateUserProfile }
