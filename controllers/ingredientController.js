@@ -16,6 +16,7 @@ const addIngredient = asyncHandler(async (req, res) => {
   const {
     user,
     name,
+    price,
     image,
     category,
     memo,
@@ -26,6 +27,7 @@ const addIngredient = asyncHandler(async (req, res) => {
   const ingredient = new Ingredient({
     user,
     name,
+    price,
     image,
     category,
     memo,
