@@ -55,4 +55,29 @@ const deleteIngredient = asyncHandler(async (req, res) => {
   }
 })
 
-export { getIngredients, addIngredient, deleteIngredient }
+// @desc    식재료 정보 수정
+// @route   PUT /api/ingredients
+// @access  Public
+const updateIngredient = asyncHandler(async (req, res) => {
+  const ingredient = await Ingredient.findById(req.body._id)
+
+  if (ingredient) {
+    ingredient.name = req.body.name || ingredient.name
+    ingredient.price = req.body.price || ingredient.price
+    ingredient.image = req.body.image || ingredient.image
+    ingredient.category = req.body.category || ingredient.category
+    ingredient.memo = req.body.memo || ingredient.memo
+    ingredient.barcode = req.body.barcode || ingredient.barcode
+    ingredient.expirationDate =
+      req.body.expirationDate || ingredient.expirationDate
+
+    const updatedIngredient = await ingredient.save()
+
+    res.json(updatedIngredient)
+  } else {
+    res.status(404)
+    throw new Error('존재하지 않는 식재료입니다.')
+  }
+})
+
+export { getIngredients, addIngredient, deleteIngredient, updateIngredient }
