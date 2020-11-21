@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Ingredient from '../models/ingredientModel.js'
 
-// @desc    유저 식재료
+// @desc    유저 식재료 불러오기
 // @route   GET /api/ingredients/:id
 // @access  Public
 const getIngredients = asyncHandler(async (req, res) => {
@@ -9,7 +9,7 @@ const getIngredients = asyncHandler(async (req, res) => {
   res.json(ingredients)
 })
 
-// @desc    유저 식재료
+// @desc    유저 식재료 등록
 // @route   POST /api/ingredients
 // @access  Public
 const addIngredient = asyncHandler(async (req, res) => {
