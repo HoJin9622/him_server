@@ -18,4 +18,14 @@ const addOrderItems = asyncHandler(async (req, res) => {
   res.status(201).json(createOrder)
 })
 
-export { addOrderItems }
+// @desc    내 주문 목록
+// @route   GET /api/orders/myorders/:id
+// @access  Public
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ buyer: req.params.id }).populate(
+    'buyer seller orderIngredient'
+  )
+  res.json(orders)
+})
+
+export { addOrderItems, getMyOrders }
