@@ -78,8 +78,23 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('존재하지 않는 유저입니다.')
   }
 })
 
-export { registerUser, authUser, updateUserProfile }
+// @desc    유저 회원탈퇴
+// @route   DELETE /api/users/:id
+// @access  Public
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    await user.remove()
+    res.json({ message: '정상적으로 탈퇴되었습니다.' })
+  } else {
+    res.status(404)
+    throw new Error('존재하지 않는 유저입니다.')
+  }
+})
+
+export { registerUser, authUser, updateUserProfile, deleteUser }
