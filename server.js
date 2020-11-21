@@ -6,6 +6,7 @@ import connectDB from './config/db.js'
 
 import userRoutes from './routes/userRoutes.js'
 import ingredientRoutes from './routes/ingredientRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', userRoutes)
 app.use('/api/ingredients', ingredientRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
