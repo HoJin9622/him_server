@@ -38,6 +38,6 @@ fix: 잘못된 리다이렉팅 수정
 docs: README.md 수정
 ```
 
-# 서버 저장소
+# 클라이언트 저장소
 
-[바로가기](https://github.com/HoJin9622/him_server)
+[바로가기](https://github.com/HoJin9622/him)
