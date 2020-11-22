@@ -28,4 +28,19 @@ const getMyOrders = asyncHandler(async (req, res) => {
   res.json(orders)
 })
 
-export { addOrderItems, getMyOrders }
+// @desc    주문 취소
+// @route   DELETE /api/orders/:id
+// @access  Public
+const deleteOrder = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    await order.remove()
+    res.json({ message: '주문이 성공적으로 취소되었습니다.' })
+  } else {
+    res.status(404)
+    throw new Error('올바르지 않은 주문번호입니다.')
+  }
+})
+
+export { addOrderItems, getMyOrders, deleteOrder }
