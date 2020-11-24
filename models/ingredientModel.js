@@ -16,13 +16,6 @@ const ingredientSchema = mongoose.Schema({
   image: {
     type: String,
   },
-  category: {
-    type: String,
-    required: true,
-  },
-  memo: {
-    type: String,
-  },
   barcode: {
     type: String,
   },

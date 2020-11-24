@@ -5,15 +5,15 @@ import User from '../models/userModel.js'
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-  const { id, password } = req.body
+  const { userId, password } = req.body
 
-  const user = await User.findOne({ id })
+  const user = await User.findOne({ userId })
 
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       name: user.name,
-      id: user.id,
+      userId: user.userId,
       isProvider: user.isProvider,
     })
   } else {
@@ -26,9 +26,9 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, id, password, isProvider } = req.body
+  const { name, userId, password, isProvider } = req.body
 
-  const userExists = await User.findOne({ id })
+  const userExists = await User.findOne({ userId })
 
   if (userExists) {
     res.status(400)
@@ -37,7 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     name,
-    id,
+    userId,
     password,
     isProvider,
   })
@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       name: user.name,
-      id: user.id,
+      userId: user.userId,
       isProvider: user.isProvider,
     })
   } else {
@@ -63,7 +63,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     user.name = req.body.name || user.name
-    user.id = req.body.id || user.id
+    user.userId = req.body.userId || user.userId
     if (req.body.password) {
       user.password = req.body.password
     }
@@ -72,7 +72,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedUser._id,
-      id: updatedUser.id,
+      userId: updatedUser.userId,
       name: updatedUser.name,
       isProvider: updatedUser.isProvider,
     })

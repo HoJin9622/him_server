@@ -13,24 +13,13 @@ const getIngredients = asyncHandler(async (req, res) => {
 // @route   POST /api/ingredients
 // @access  Public
 const addIngredient = asyncHandler(async (req, res) => {
-  const {
-    user,
-    name,
-    price,
-    image,
-    category,
-    memo,
-    barcode,
-    expirationDate,
-  } = req.body
+  const { user, name, price, image, barcode, expirationDate } = req.body
 
   const ingredient = new Ingredient({
     user,
     name,
     price,
     image,
-    category,
-    memo,
     barcode,
     expirationDate,
   })
@@ -65,8 +54,6 @@ const updateIngredient = asyncHandler(async (req, res) => {
     ingredient.name = req.body.name || ingredient.name
     ingredient.price = req.body.price || ingredient.price
     ingredient.image = req.body.image || ingredient.image
-    ingredient.category = req.body.category || ingredient.category
-    ingredient.memo = req.body.memo || ingredient.memo
     ingredient.barcode = req.body.barcode || ingredient.barcode
     ingredient.expirationDate =
       req.body.expirationDate || ingredient.expirationDate
