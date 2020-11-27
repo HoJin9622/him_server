@@ -67,4 +67,19 @@ const updateIngredient = asyncHandler(async (req, res) => {
   }
 })
 
-export { getIngredients, addIngredient, deleteIngredient, updateIngredient }
+// @desc    바코드에 해당하는 식재료
+// @route   GET /api/ingredients/barcode/:id
+// @access  Public
+const getIngredient = asyncHandler(async (req, res) => {
+  const ingredient = await Ingredient.findOne({ barcode: req.params.id })
+
+  res.json(ingredient)
+})
+
+export {
+  getIngredients,
+  addIngredient,
+  deleteIngredient,
+  updateIngredient,
+  getIngredient,
+}
