@@ -22,9 +22,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/myorders/:id
 // @access  Public
 const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ buyer: req.params.id }).populate(
-    'buyer seller orderIngredient'
-  )
+  const orders = await Order.find()
+    .or([{ buyer: req.params.id }, { seller: req.params.id }])
+    .populate('buyer seller orderIngredient')
   res.json(orders)
 })
 
