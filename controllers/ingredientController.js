@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Ingredient from '../models/ingredientModel.js'
+import Order from '../models/orderModel.js'
 
 // @desc    유저 식재료 불러오기
 // @route   GET /api/ingredients/:id
@@ -33,7 +34,15 @@ const addIngredient = asyncHandler(async (req, res) => {
 // @route   DELETE /api/ingredients/:id
 // @access  Public
 const deleteIngredient = asyncHandler(async (req, res) => {
+  const order = await Order.findOne({ orderIngredient: req.params.id })
   const ingredient = await Ingredient.findById(req.params.id)
+
+  console.log(order)
+
+  if (order) {
+    res.status(400)
+    throw new Error('주문목록에 있는 식재료입니다.')
+  }
 
   if (ingredient) {
     await ingredient.remove()
