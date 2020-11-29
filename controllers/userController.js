@@ -112,4 +112,25 @@ const getProvider = asyncHandler(async (req, res) => {
   }
 })
 
-export { registerUser, authUser, updateUserProfile, deleteUser, getProvider }
+// @desc    공급자 체크
+// @route   GET /api/users/isProvider/:id
+// @access  Public
+const isProvider = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  console.log(user)
+
+  if (user.isProvider) {
+    res.json({ isProvider: true })
+  } else {
+    res.json({ isProvider: false })
+  }
+})
+
+export {
+  registerUser,
+  authUser,
+  updateUserProfile,
+  deleteUser,
+  getProvider,
+  isProvider,
+}
