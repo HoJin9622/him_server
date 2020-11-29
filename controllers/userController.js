@@ -97,4 +97,19 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 })
 
-export { registerUser, authUser, updateUserProfile, deleteUser }
+// @desc    공급자 불러오기
+// @route   GET /api/users/provider
+// @access  Public
+const getProvider = asyncHandler(async (req, res) => {
+  const users = await User.find({ isProvider: true })
+  console.log(users)
+
+  if (users) {
+    res.json(users)
+  } else {
+    res.status(404)
+    throw new Error('공급자가 존재하지 않습니다.')
+  }
+})
+
+export { registerUser, authUser, updateUserProfile, deleteUser, getProvider }

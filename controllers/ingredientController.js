@@ -37,8 +37,6 @@ const deleteIngredient = asyncHandler(async (req, res) => {
   const order = await Order.findOne({ orderIngredient: req.params.id })
   const ingredient = await Ingredient.findById(req.params.id)
 
-  console.log(order)
-
   if (order) {
     res.status(400)
     throw new Error('주문목록에 있는 식재료입니다.')
