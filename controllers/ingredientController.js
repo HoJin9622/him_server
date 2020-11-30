@@ -6,7 +6,9 @@ import Order from '../models/orderModel.js'
 // @route   GET /api/ingredients/:id
 // @access  Public
 const getIngredients = asyncHandler(async (req, res) => {
-  const ingredients = await Ingredient.find({ user: req.params.id })
+  const ingredients = await Ingredient.find({ user: req.params.id }).sort({
+    expirationDate: 1,
+  })
   res.json(ingredients)
 })
 
