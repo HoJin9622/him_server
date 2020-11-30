@@ -15,7 +15,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   const createOrder = await order.save()
 
-  res.status(201).json(createOrder)
+  res.status(201).json({ message: '주문이 정상적으로 등록되었습니다.' })
 })
 
 // @desc    내 주문 목록
