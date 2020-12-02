@@ -82,7 +82,7 @@ const updateIngredient = asyncHandler(async (req, res) => {
 const getIngredient = asyncHandler(async (req, res) => {
   const { user, barcode } = req.body
   const ingredient = await Ingredient.find({ user, barcode })
-  if (ingredient) {
+  if (ingredient.length > 0) {
     res.json(ingredient[ingredient.length - 1])
   }
 
@@ -90,8 +90,12 @@ const getIngredient = asyncHandler(async (req, res) => {
   const providerIngredients = ingredients.filter(
     (ingredient) => ingredient.user.isProvider === true
   )
-  if (providerIngredients) {
+  if (providerIngredients.length > 0) {
+    providerIngredients[0].user = providerIngredients[0].user._id
     res.json(providerIngredients[0])
+  } else {
+    res.status(404)
+    throw new Error('존재하지 않는 식재료입니다.')
   }
 })
 
