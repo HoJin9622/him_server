@@ -77,12 +77,22 @@ const updateIngredient = asyncHandler(async (req, res) => {
 })
 
 // @desc    바코드에 해당하는 식재료
-// @route   GET /api/ingredients/barcode/:id
+// @route   POST /api/ingredients/barcode
 // @access  Public
 const getIngredient = asyncHandler(async (req, res) => {
-  const ingredient = await Ingredient.findOne({ barcode: req.params.id })
+  const { user, barcode } = req.body
+  const ingredient = await Ingredient.find({ user, barcode })
+  if (ingredient) {
+    res.json(ingredient[ingredient.length - 1])
+  }
 
-  res.json(ingredient)
+  const ingredients = await Ingredient.find({ barcode }).populate('user')
+  const providerIngredients = ingredients.filter(
+    (ingredient) => ingredient.user.isProvider === true
+  )
+  if (providerIngredients) {
+    res.json(providerIngredients[0])
+  }
 })
 
 export {
