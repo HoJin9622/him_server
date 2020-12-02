@@ -91,8 +91,9 @@ const getIngredient = asyncHandler(async (req, res) => {
     (ingredient) => ingredient.user.isProvider === true
   )
   if (providerIngredients.length > 0) {
-    providerIngredients[0].user = providerIngredients[0].user._id
-    res.json(providerIngredients[0])
+    providerIngredients[providerIngredients.length - 1].user =
+      providerIngredients[providerIngredients.length - 1].user._id
+    res.json(providerIngredients[providerIngredients.length - 1])
   } else {
     res.status(404)
     throw new Error('존재하지 않는 식재료입니다.')
